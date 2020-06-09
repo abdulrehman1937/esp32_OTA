@@ -79,8 +79,6 @@ def startloop(config):
     millis = time.ticks_ms()
     gc.collect()
         # sendData.append(getSensorData())
-    publish_delay = 3000
-    fall_delay = 200
     time.sleep(1)
     try:
         f = open(myos.path.dirname(__file__) + '/../errors.log','r')
