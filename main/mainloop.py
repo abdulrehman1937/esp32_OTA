@@ -5,6 +5,7 @@ import machine
 import esp32
 import myos.path
 import os
+from ota_updater import OTAUpdater
 publish_delay = 3000
 fall_delay = 200
     # connect()
@@ -14,7 +15,28 @@ def on_message(topic, message):
     topic=str(topic.decode("utf-8"))
     print((topic, message))
     if topic=='/devices/esp32_fall/commands/update':
-        print("updating")
+        print("launching update")
+        o = OTAUpdater('https://github.com/abdulrehman1937/esp32_OTA')
+        o.check_for_update_to_install_during_next_reboot()
+        print("Downloading update done reboting")
+        machine.reset()
+        
+    elif topic=='/devices/esp32_fall/commands/reset':
+        try:
+            os.remove("errors.log")
+            print("deleted log file")
+        except:
+            print("Error file not exist")
+        try:
+            os.remove("config")
+            print("deleted config file")
+        except:
+            print("config file not exist")
+        try:
+            os.remove("wifi.dat")
+            print("deleted wifi file")
+        except:
+            print("wifi file not exist")
     elif topic=='/devices/esp32_fall/commands/myconfig':
         f1 = open(myos.path.dirname(__file__) + '/../config','w')
         message=str(message.decode("utf-8"))
