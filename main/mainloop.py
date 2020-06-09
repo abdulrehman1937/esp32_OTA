@@ -4,6 +4,7 @@ from initSystem import initSensor,create_jwt,get_mqtt_client,getSensorData
 import machine
 import esp32
 import myos.path
+import os
 publish_delay = 3000
 fall_delay = 200
     # connect()
@@ -15,7 +16,7 @@ def on_message(topic, message):
     if topic=='/devices/esp32_fall/commands/update':
         print("updating")
     elif topic=='/devices/esp32_fall/commands/myconfig':
-        f1 = open(os.path.dirname(__file__) + '/../config',w)
+        f1 = open(myos.path.dirname(__file__) + '/../config',w)
         message=str(message.decode("utf-8"))
         f1.write(message)
         f1.close()
@@ -32,7 +33,7 @@ def startloop(config):
     fall_delay = 200
     print("hi updated here 1")
     try:
-        f = open(os.path.dirname(__file__) + '/../config',r)
+        f = open(myos.path.dirname(__file__) + '/../config',r)
         temp=str(f.readline())
         print(temp)
         publish_delay=int(temp)
@@ -63,7 +64,7 @@ def startloop(config):
     fall_delay = 200
     time.sleep(1)
     try:
-        f = open(os.path.dirname(__file__) + '/../errors.log',r)
+        f = open(myos.path.dirname(__file__) + '/../errors.log',r)
         msg=f.read()
         print(msg)
         print("Publishing Erros log messages "+str(len(msg)))
@@ -129,7 +130,7 @@ def startloop(config):
         print(e)
         error="Error"
         print("saving errors log")
-        f1 = open(os.path.dirname(__file__) + '/../errors.log',w)
+        f1 = open(myos.path.dirname(__file__) + '/../errors.log',w)
         f1.write(e)
         f1.write("\n")
         f1.close()
