@@ -11,10 +11,10 @@ def on_message(topic, message):
     global publish_delay
     global fall_delay 
     topic=str(topic)
-    print("here")
+    print((topic, message))
     if topic=='/devices/esp32_fall/commands/update':
         print("updating")
-    if topic=='/devices/esp32_fall/commands/fall_delay':
+    elif topic=='/devices/esp32_fall/commands/fall_delay':
         f1 = open(os.path.dirname(__file__) + '/../config',w)
         message=str(message)
         f1.write(message)
@@ -24,7 +24,7 @@ def on_message(topic, message):
         fall_delay=int(message[1])
         print("Done updateing and writing"+str(publish_delay)+str(fall_delay))
         
-    print((topic, message))
+    
 def startloop(config):
     global publish_delay
     global fall_delay
