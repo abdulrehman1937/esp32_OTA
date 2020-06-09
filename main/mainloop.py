@@ -39,7 +39,7 @@ def startloop(config):
         print(temp)
         fall_delay=temp
         f.close()
-        //os.remove("confif")
+        #os.remove("confif")
         print("Done updateing"+str(publish_delay)+str(fall_delay))
         del f
     except:
