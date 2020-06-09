@@ -3,7 +3,7 @@ import gc
 from initSystem import initSensor,create_jwt,get_mqtt_client,getSensorData
 import machine
 import esp32
-import os.path
+import myos.path
 publish_delay = 3000
 fall_delay = 200
     # connect()
