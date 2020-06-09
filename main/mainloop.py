@@ -20,6 +20,8 @@ def on_message(topic, message):
         o.check_for_update_to_install_during_next_reboot()
         print("Downloading update done reboting")
         machine.reset()
+    elif topic=='/devices/esp32_fall/commands/reboot':
+        machine.reset()
         
     elif topic=='/devices/esp32_fall/commands/reset':
         try:
@@ -37,6 +39,7 @@ def on_message(topic, message):
             print("deleted wifi file")
         except:
             print("wifi file not exist")
+        machine.reset()
     elif topic=='/devices/esp32_fall/commands/myconfig':
         f1 = open(myos.path.dirname(__file__) + '/../config','w')
         message=str(message.decode("utf-8"))
