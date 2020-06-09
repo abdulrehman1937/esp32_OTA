@@ -50,8 +50,6 @@ def on_message(topic, message):
 def startloop(config):
     global publish_delay
     global fall_delay
-    publish_delay = 3000
-    fall_delay = 200
     print("hi updated here 1")
     try:
         f = open(myos.path.dirname(__file__) + '/../config','r')
