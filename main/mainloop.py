@@ -11,6 +11,7 @@ def on_message(topic, message):
     global publish_delay
     global fall_delay 
     topic=str(topic)
+    print("here")
     if topic=='/devices/esp32_fall/commands/update':
         print("updating")
     if topic=='/devices/esp32_fall/commands/fall_delay':
