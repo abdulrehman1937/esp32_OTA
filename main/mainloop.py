@@ -3,14 +3,49 @@ import gc
 from initSystem import initSensor,create_jwt,get_mqtt_client,getSensorData
 import machine
 import esp32
+import os.path
+publish_delay = 3000
+fall_delay = 200
     # connect()
 def on_message(topic, message):
+    global publish_delay
+    global fall_delay 
     topic=str(topic)
+    if topic=='/devices/esp32_fall/commands/update':
+        print("updating")
     if topic=='/devices/esp32_fall/commands/fall_delay':
-        print("new data")
+        f1 = open(os.path.dirname(__file__) + '/../config',w)
+        message=str(message)
+        f1.write(message)
+        f1.close()
+        message=message.split()
+        publish_delay=int(message[0])
+        fall_delay=int(message[1])
+        print("Done updateing and writing"+str(publish_delay)+str(fall_delay))
+        
     print((topic, message))
 def startloop(config):
-    print("hi updated here")
+    global publish_delay
+    global fall_delay
+    publish_delay = 3000
+    fall_delay = 200
+    print("hi updated here 1")
+    try:
+        f = open(os.path.dirname(__file__) + '/../config',r)
+        temp=str(f.readline())
+        print(temp)
+        publish_delay=int(temp)
+        temp=str(f.readline())
+        print(temp)
+        fall_delay=temp
+        f.close()
+        //os.remove("confif")
+        print("Done updateing"+str(publish_delay)+str(fall_delay))
+        del f
+    except:
+        print("Config file not presnt")
+        
+        
     lastMillisFall = 0
     lastMillis = 0
     sendData = ""    
@@ -27,10 +62,10 @@ def startloop(config):
     fall_delay = 200
     time.sleep(1)
     try:
-        f= open("erros.log","r")
+        f = open(os.path.dirname(__file__) + '/../errors.log',r)
         msg=f.read()
         print(msg)
-        print("Publishing message "+str(len(msg)))
+        print("Publishing Erros log messages "+str(len(msg)))
         mqtt_topic = '/devices/{}/{}'.format(
                 config.google_cloud_config['device_id'], 'events')
         client.publish(mqtt_topic.encode('utf-8'),
@@ -93,7 +128,7 @@ def startloop(config):
         print(e)
         error="Error"
         print("saving errors log")
-        f1= open("erros.log","w")
+        f1 = open(os.path.dirname(__file__) + '/../errors.log',w)
         f1.write(e)
         f1.write("\n")
         f1.close()
@@ -101,3 +136,4 @@ def startloop(config):
         led_pin.value(0)
         time.sleep(10)
         machine.reset()
+
