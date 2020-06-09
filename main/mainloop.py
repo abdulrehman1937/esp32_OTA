@@ -15,14 +15,10 @@ def on_message(topic, message):
     topic=str(topic.decode("utf-8"))
     print((topic, message))
     if topic=='/devices/esp32_fall/commands/update':
-        print("launching update")
-        o = OTAUpdater('https://github.com/abdulrehman1937/esp32_OTA')
-        o.check_for_update_to_install_during_next_reboot()
-        print("Downloading update done reboting")
+        print("launching update after reboot")
         machine.reset()
     elif topic=='/devices/esp32_fall/commands/reboot':
         machine.reset()
-        
     elif topic=='/devices/esp32_fall/commands/reset':
         try:
             os.remove("errors.log")
