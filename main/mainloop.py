@@ -1,18 +1,19 @@
-import config
 import time
 import gc
 from initSystem import initSensor,create_jwt,get_mqtt_client,getSensorData
+import machine
+import esp32
     # connect()
 def on_message(topic, message):
     topic=str(topic)
     if topic=='/devices/esp32_fall/commands/fall_delay':
         print("new data")
     print((topic, message))
-def startloop:
+def startloop(config):
     lastMillisFall = 0
     lastMillis = 0
     sendData = ""    
-    led_pin = machine.Pin(led_pin1, Pin.OUT)
+    led_pin = machine.Pin(config.device_config['led_pin'], machine.Pin.OUT)
     gc.collect()
     initSensor()
     jwt = create_jwt(config.google_cloud_config['project_id'], config.jwt_config['private_key'],config.jwt_config['algorithm'], config.jwt_config['token_ttl'])
