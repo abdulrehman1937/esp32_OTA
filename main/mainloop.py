@@ -6,7 +6,7 @@ import esp32
 import myos.path
 import os
 from ota_updater import OTAUpdater
-publish_delay = 3000
+publish_delay = 10000
 fall_delay = 200
     # connect()
 def on_message(topic, message):
