@@ -10,6 +10,7 @@ def on_message(topic, message):
         print("new data")
     print((topic, message))
 def startloop(config):
+    print("hi updated here")
     lastMillisFall = 0
     lastMillis = 0
     sendData = ""    
