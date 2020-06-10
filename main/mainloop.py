@@ -90,7 +90,7 @@ def startloop(config):
         client.publish(mqtt_topic.encode('utf-8'),
                 msg.encode('utf-8'))
         f.close()
-        os.remove("erros.log")
+        os.remove("errors.log")
         print("File Removed!")
         del f
         del msg
