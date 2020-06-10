@@ -144,11 +144,10 @@ def startloop(config):
         print("Here")
         
         e=str(e)
-        print(e)
-        error="Error"
+        print(e)       
         print("saving errors log")
         f1 = open(myos.path.dirname(__file__) + '/../errors.log','w')
-        f1.write(e)
+        f1.write("error:"+e)
         f1.write("\n")
         f1.close()
         print("saved errors log")
