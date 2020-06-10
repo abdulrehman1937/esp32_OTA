@@ -58,7 +58,7 @@ def startloop(config):
         publish_delay=int(temp)
         temp=str(f.readline())
         print(temp)
-        fall_delay=temp
+        fall_delay=int(temp)
         f.close()
         #os.remove("confif")
         print("Done updateing"+str(publish_delay)+str(fall_delay))
